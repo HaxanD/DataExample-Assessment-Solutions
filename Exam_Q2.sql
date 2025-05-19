@@ -18,18 +18,3 @@ FROM
         GROUP BY
             owner_id
     ) s ON u.id = s.owner_id
-    INNER JOIN (
-        SELECT
-            owner_id,
-            COUNT(*) AS investment_count,
-            SUM(amount) AS total_investments
-        FROM
-            adashi_staging.plans_plan
-        WHERE
-            is_a_fund = 1
-            AND amount > 0
-        GROUP BY
-            owner_id
-    ) p ON u.id = p.owner_id
-ORDER BY
-    total_deposits DESC;
